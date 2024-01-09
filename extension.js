@@ -37,27 +37,24 @@ function activate(context) {
  
 
 	let put_file_lang_foreach_view = vscode.commands.registerCommand('manage-project-laravel-9.put-file-lang-foreach-view', function () {
-		const pythonCommand = 'python3'; 
-        const pythonScript = path.join(__dirname, 'scripts', 'put_file_lang.py');
-        const actual_path = getCurrentWorkspacePath();
- 
-        if (actual_path) { 
-            // Exécution de la commande Python
-            exec(`${pythonCommand} ${pythonScript} ${actual_path}`, (error, stdout, stderr) => {
-                if (error) { 
-                    vscode.window.showErrorMessage(`Sortie du script Python : ${stdout}`)
-                    return;
-                }
-    
-                vscode.window.showInformationMessage(`Message : ${stdout}`)
-            });
-        }
+		
+        callPutFileLang(true)
 
 	});
 
+    if(vscode.workspace.getConfiguration().get('active-on-save-file-blade'))
+    {
+        
+        // Enregistrez l'écouteur d'événements lors de l'activation de l'extension
+        let handle_on_save_view_file = vscode.workspace.onDidSaveTextDocument(function (event) {
 
-    
+            if (event.fileName.endsWith('.blade.php')) {
+                callPutFileLang(false)
+            }
+        });
 
+        context.subscriptions.push(handle_on_save_view_file);
+    }
 
 	context.subscriptions.push(enclose_markers_lang);
 	context.subscriptions.push(put_file_lang_foreach_view);
@@ -74,7 +71,28 @@ function getCurrentWorkspacePath() {
         return undefined;
     }
 }
+ 
+function callPutFileLang(show_message = false) {
 
+    const pythonCommand = 'python3'; 
+    const pythonScript = path.join(__dirname, 'scripts', 'put_file_lang.py');
+    const actual_path = getCurrentWorkspacePath();
+
+    if (actual_path) { 
+        // Exécution de la commande Python
+        exec(`${pythonCommand} ${pythonScript} ${actual_path}`, (error, stdout, stderr) => {
+            if (error) { 
+                vscode.window.showErrorMessage(`Sortie du script Python : ${stdout}`)
+                return;
+            }
+            if(show_message) {
+                vscode.window.showInformationMessage(`Message : ${stdout}`)
+            }
+        });
+    }
+
+}
+ 
 // This method is called when your extension is deactivated
 function deactivate() {}
 

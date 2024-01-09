@@ -8,8 +8,10 @@
   },
   "categories": [
     "Other"
+  ], 
+  "activationEvents": [
+    "*"
   ],
-  "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
     "configuration": [
@@ -25,6 +27,11 @@
             "type": "string",
             "description": "Start enclose managers for view",
             "default": "__***"
+          },
+          "active-on-save-file-blade": {
+            "type": "boolean",
+            "description": "Active on save a file .blade.php",
+            "default": true
           }
         }
       }
