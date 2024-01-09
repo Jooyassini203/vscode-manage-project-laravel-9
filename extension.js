@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
 const { exec } = require('child_process');
+const path = require('path');
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -37,8 +38,8 @@ function activate(context) {
 
 	let put_file_lang_foreach_view = vscode.commands.registerCommand('manage-project-laravel-9.put-file-lang-foreach-view', function () {
 		const pythonCommand = 'python3'; 
-		const pythonScript = 'scripts/put_file_lang.py';
-		const actual_path = getCurrentWorkspacePath();
+        const pythonScript = path.join(__dirname, 'scripts', 'put_file_lang.py');
+        const actual_path = getCurrentWorkspacePath();
  
         if (actual_path) { 
             // Exécution de la commande Python

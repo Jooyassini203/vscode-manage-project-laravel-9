@@ -9,8 +9,8 @@ else:
     print('Missing arguments project_path')
     exit()
 
-print('project_path', project_path)
-exit()
+# print('project_path', project_path)
+# exit()
     
 list_views = get_all_views(project_path)
 
