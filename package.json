@@ -1,0 +1,102 @@
+{
+  "name": "manage-project-laravel-9",
+  "displayName": "manage-project-laravel-9",
+  "description": "Manage project laravel 9",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "configuration": [
+      {
+        "title": "Configuration enclose markers (text in view) for manage project laravel",
+        "properties": {
+          "start-enclose": {
+            "type": "string",
+            "description": "Start enclose managers for view",
+            "default": "***__"
+          },
+          "end-enclose": {
+            "type": "string",
+            "description": "Start enclose managers for view",
+            "default": "__***"
+          }
+        }
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "manage-project-laravel-9.enclose-markers-lang",
+          "group": "2_basic_edit",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "manage-project-laravel-9.enclose-markers-lang",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorTextFocus && editorHasSelection"
+      }
+    ],
+    "commands": [
+      {
+        "command": "manage-project-laravel-9.enclose-markers-lang",
+        "title": "Enclose markers lang (Manage project laravel)"
+      },
+      {
+        "command": "manage-project-laravel-9.put-file-lang-foreach-view",
+        "title": "Put file lang for each view"
+      },
+      {
+        "command": "manage-project-laravel-9.show-panel",
+        "title": "Show panel manage project laravel 9" 
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "manage-project-laravel",
+          "title": "Manage project laravel",
+          "icon": "resources/manage-project-laravel.svg"
+        }
+      ]
+    },
+    "views": {
+      "package-explorer": [
+        {
+          "id": "package-dependencies",
+          "name": "Dependencies"
+        },
+        {
+          "id": "package-outline",
+          "name": "Outline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2"
+  }
+}
